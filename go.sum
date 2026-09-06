@@ -1,0 +1,12 @@
+webtyp.com/base64 v0.0.6 h1:Tkr9Y/s3RLa6yuatk5Tdwdc90NhDP6pNYO1HQG9iIHM=
+webtyp.com/base64 v0.0.6/go.mod h1:wH2ocJ0rKbTo34XLsDryH9STDu0Jm2gQXasjh5wDwEw=
+webtyp.com/crypto v0.0.27 h1:BJk4bGaVFJQ7nX8PBOVxkZLO6gNh4qmxAi5TBIlWZJ0=
+webtyp.com/crypto v0.0.27/go.mod h1:fzOf/qgQamYD2juv8fCGqWpiUKX8Pm0B+LplyAHFWnI=
+webtyp.com/fmt v1.0.0 h1:W0vMMGC6ezg1q2LarAEaVnNvZ26hVqzZdQQH1wcNogM=
+webtyp.com/fmt v1.0.0/go.mod h1:FmTxx713R45J21kbH5JOmKGaaCap3fJPA9Yl2n4Ch7U=
+webtyp.com/json v0.5.25 h1:f/JUsrtFGq4Sa/UGYI0lWHyY83V+r0li+Q89s3DkqZs=
+webtyp.com/json v0.5.25/go.mod h1:KdFRztDe6ZwGP/ih0DR8grO72ru9h1DjZcG1UU5fRrM=
+webtyp.com/model v0.1.8 h1:E8btSBmISbH1UHEUEmbrxCRWcX8zv08VvdRgWSAq894=
+webtyp.com/model v0.1.8/go.mod h1:OkyYeE3GOG8eAQGhd9wVsORAhr+xYj3q8avpoGXG25c=
+webtyp.com/time v0.5.5 h1:G7/eAGXJWVHBJqx7lO4K/Zy1FzNXqkW9X6AAhbTmj6E=
+webtyp.com/time v0.5.5/go.mod h1:V6ew493Rk+an2mV77vVjytPAbtlsELVZ4O4wGqu4tUI=
