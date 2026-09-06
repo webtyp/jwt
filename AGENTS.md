@@ -1,4 +1,4 @@
-# Agent Guide — `tinywasm/jwt`
+# Agent Guide — `webtyp/jwt`
 
 Constraints for agents working on this library. Read this before any change.
 
@@ -15,7 +15,7 @@ WASM frontend reading its own session — does not have to import an entire auth
 (ORM, bcrypt, OAuth, a database driver) to do it. **Binary size is a design
 constraint, not a detail.**
 
-The canonical consumer is `tinywasm/user`, which issues the tokens this library signs.
+The canonical consumer is `webtyp/user`, which issues the tokens this library signs.
 
 ## Public API shape — direct package functions
 
@@ -61,7 +61,7 @@ not make forging easy**.
    - `error` = **the caller** is broken (empty secret). A configuration bug.
    - `Outcome` = what **the token** is: `Valid`, `Expired`, `Forged`.
 
-   This is not decoration. When expiry was a sentinel error, `tinywasm/user` wrote
+   This is not decoration. When expiry was a sentinel error, `webtyp/user` wrote
    `if err != nil { EventJWTTampered }` and reported **every routine session expiry as
    a forgery** — firing the loudest alarm in the system on its quietest event and
    burying real attacks in the noise. With a closed enum, that collapse is something
@@ -84,23 +84,23 @@ not make forging easy**.
 
 | Instead of | Use |
 |---|---|
-| `strings`, `strconv`, `errors`, `fmt` | `github.com/tinywasm/fmt` |
-| `encoding/json` | `github.com/tinywasm/json` |
-| `encoding/base64` | `github.com/tinywasm/base64` |
-| `time` | `github.com/tinywasm/time` (nanoseconds) |
-| `crypto/hmac`, `crypto/sha256` | `github.com/tinywasm/crypto` |
+| `strings`, `strconv`, `errors`, `fmt` | `webtyp.com/fmt` |
+| `encoding/json` | `webtyp.com/json` |
+| `encoding/base64` | `webtyp.com/base64` |
+| `time` | `webtyp.com/time` (nanoseconds) |
+| `crypto/hmac`, `crypto/sha256` | `webtyp.com/crypto` |
 
 **Never roll your own primitive.** No hand-written HMAC or SHA loops — call
-`tinywasm/crypto`, which is the one place crypto stdlib is concentrated.
+`webtyp/crypto`, which is the one place crypto stdlib is concentrated.
 
 There is **no carve-out** in this repo. If you need something that is not in the table,
-it belongs upstream in the corresponding `tinywasm/*` library, not here: **STOP and
+it belongs upstream in the corresponding `webtyp/*` library, not here: **STOP and
 report it** rather than working around it locally.
 
 ## Testing — dual WASM/stdlib pattern
 
 ```bash
-go install github.com/tinywasm/devflow/cmd/gotest@latest
+go install webtyp.com/devflow/cmd/gotest@latest
 gotest          # runs BOTH suites: native + wasm
 gotest -tinygo  # compiles the WASM suite with TinyGo (slow, goes through LLVM)
 ```

@@ -1,10 +1,10 @@
-# Security Audit — `tinywasm/jwt`
+# Security Audit — `webtyp/jwt`
 
 - **Date:** 2026-07-14
 - **Scope:** the whole public surface as of commit `b5b3f0b` ("interop vectors,
   unverified decode, clock leeway and key rotation" — the feature set released as
-  `v0.1.0`), plus the cryptographic primitives it delegates to (`tinywasm/crypto`,
-  `tinywasm/base64`, `tinywasm/fmt.Split`) as used from here.
+  `v0.1.0`), plus the cryptographic primitives it delegates to (`webtyp/crypto`,
+  `webtyp/base64`, `webtyp/fmt.Split`) as used from here.
 - **Method:** manual review of every code path that touches attacker-controlled
   input; independent recomputation of the interop vector outside this ecosystem
   (Python `hmac`/`hashlib`); dual-toolchain test runs (`gotest`, `gotest -tinygo`);
@@ -31,7 +31,7 @@ of tokens on the client.
 | 3 | Empty subject refused | `Sign` and post-signature payload check | `RejectsEmptySubject` |
 | 4 | Missing `exp` ⇒ `Forged`, never eternal | `verifyWithPayload` (`Exp <= 0`) | `RejectsMissingExp` |
 | 5 | Nothing decoded before the signature is proven | payload decode happens after `HMACEqual` | code order in `Verify`/`VerifyAny`; `DecodeUnverified` is the one deliberate, loudly-named exception |
-| 6 | MAC comparison is constant-time | `crypto.HMACEqual` → `hmac.Equal` (stdlib `subtle`) | reviewed `tinywasm/crypto/hmac.go` |
+| 6 | MAC comparison is constant-time | `crypto.HMACEqual` → `hmac.Equal` (stdlib `subtle`) | reviewed `webtyp/crypto/hmac.go` |
 | 7 | Verdict never travels in the `error` channel | `Outcome` enum | `ExpiredIsNotForged`; fuzz asserts `err == nil` for every token |
 | 8 | `Forged` is the zero value (deny by default) | enum ordering | `ZeroOutcomeIsForged` |
 | 9 | Only `Valid` returns claims | zero `Claims` on every other path | `NoClaimsUnlessValid`, and the same property fuzzed over 5.8M inputs |
@@ -42,7 +42,7 @@ of tokens on the client.
 (an implementation sharing no code with this ecosystem) and matches byte for byte in
 both directions: the fixed token verifies, and `Sign` over the fixed claims
 reproduces it exactly. This also pins the JSON field order (`sub`,`exp`,`iat` /
-`alg`,`typ`) — `tinywasm/json` serialization proved stable, so no upstream defect
+`alg`,`typ`) — `webtyp/json` serialization proved stable, so no upstream defect
 to report there.
 
 ## Findings
@@ -114,16 +114,16 @@ section (a plain `gotest` cannot prove TinyGo compatibility).
   signing input and compared against the canonical encoding, so a mutated payload
   or signature string changes the signing input and fails authentication. It only
   makes `DecodeUnverified` (explicitly untrusted) accept token spellings the signer
-  never produced. Strictness would belong upstream in `tinywasm/base64`, per the
+  never produced. Strictness would belong upstream in `webtyp/base64`, per the
   ecosystem rule — reported, not worked around here. **Resolved upstream:**
-  `tinywasm/base64 v0.0.3` rejects non-canonical input (nonzero trailing bits,
+  `webtyp/base64 v0.0.3` rejects non-canonical input (nonzero trailing bits,
   RFC 4648 §3.5, equivalent to the stdlib's `RawURLEncoding.Strict()`); this module
   consumes it since the `deps: update base64 to v0.0.3` commit.
 - **I-2 · `fmt.Split` legacy behavior for inputs shorter than 3 bytes** returns the
   whole string as a single element (`".."` → 1 part, not 3 empties). For this
   library the effect is fail-closed (part count ≠ 3 ⇒ `Forged`; covered by
   `RejectsMalformedShapes` and fuzz), but the semantics are surprising and worth an
-  upstream note in `tinywasm/fmt`.
+  upstream note in `webtyp/fmt`.
 - **I-3 · No `iat`/`nbf` validation.** A token with a future `iat` is accepted if
   its signature and `exp` hold. Deliberate: the leeway applies to `exp` only — by
   design it must not become a general grace window — `nbf` is not in the closed
@@ -155,10 +155,10 @@ once executed); this audit is the durable record of whether they were met.
 | 6. All new tests registered in `RunJWTTests` | ✅ (fuzzing is native-only: a Go-toolchain feature) |
 | 7. Security invariant tests untouched and green | ✅ `git diff 0501ee4..` shows them unmodified |
 
-**Follow-up in the consumer (not this repo):** `tinywasm/user` still carries its
+**Follow-up in the consumer (not this repo):** `webtyp/user` still carries its
 own manual `Bearer ` parsing in `server/middleware.go`; with `FromBearer`
 released in `v0.1.0` it must delete that copy and call `jwt.FromBearer`. Tracked
-in `tinywasm/user`'s own plan queue.
+in `webtyp/user`'s own plan queue.
 
 ---
 

@@ -5,7 +5,7 @@ package jwt_test
 import (
 	"testing"
 
-	"github.com/tinywasm/jwt"
+	"webtyp.com/jwt"
 )
 
 // FuzzVerify feeds arbitrary input to the two functions that parse untrusted

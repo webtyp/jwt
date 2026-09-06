@@ -7,7 +7,7 @@ REVIEWER: none
 > Este plan se despacha con el flujo CodeJob. Ver skill: `agents-workflow`.
 > No ejecutes `gopush` ni `codejob` — son herramientas del desarrollador local.
 
-# PLAN — `tinywasm/jwt`: que el consumidor no tenga que acordarse
+# PLAN — `webtyp/jwt`: que el consumidor no tenga que acordarse
 
 ## Contexto
 
@@ -17,7 +17,7 @@ identidad. Usa `DecodeUnverified` y después tiene que acordarse, por su cuenta,
 de dos cosas que este paquete ya sabe: si el token venció y si su audiencia es
 la esperada.
 
-Doctrina obligatoria: [CONSTRUCTION_HARNESS.md](https://github.com/tinywasm/app/blob/main/docs/CONSTRUCTION_HARNESS.md).
+Doctrina obligatoria: [CONSTRUCTION_HARNESS.md](https://github.com/webtyp/app/blob/main/docs/CONSTRUCTION_HARNESS.md).
 El principio que gobierna este plan:
 
 - **"Things you *have to remember*. Any mandatory step the author must
@@ -192,7 +192,7 @@ harness no está cerrado.
 |---|---|
 | **No toques `Verify`, `VerifyAny` ni `Sign`** | Están auditados y correctos. En particular: `Verify` **nunca** debe leer el campo `alg` del header — hacerlo es la vulnerabilidad de confusión de algoritmos. El comentario que lo prohíbe se queda. |
 | **Sin mapas** | Prohibido `map[K]V` en librería y en tests. Slices + búsqueda lineal. |
-| **Sin stdlib** | Nada de `fmt`, `errors`, `strconv`, `strings`, `time`, `log`, `os`, `encoding/json`. Usa `github.com/tinywasm/fmt`, `github.com/tinywasm/time`, `github.com/tinywasm/json`. |
+| **Sin stdlib** | Nada de `fmt`, `errors`, `strconv`, `strings`, `time`, `log`, `os`, `encoding/json`. Usa `webtyp.com/fmt`, `webtyp.com/time`, `webtyp.com/json`. |
 | **`error` sí, `errors` no** | `fmt.Err(...)`, nunca `errors.New`. |
 | **Sin `reflect`** | Ni transitivo. |
 | **Sin literales repetidos** | Todo string repetido es una constante nombrada. |

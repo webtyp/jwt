@@ -1,12 +1,12 @@
-module github.com/tinywasm/jwt
+module webtyp.com/jwt
 
 go 1.25.2
 
 require (
-	github.com/tinywasm/base64 v0.0.5
-	github.com/tinywasm/crypto v0.0.26
-	github.com/tinywasm/fmt v0.25.7
-	github.com/tinywasm/json v0.5.21
-	github.com/tinywasm/model v0.1.7
-	github.com/tinywasm/time v0.5.4
+	webtyp.com/base64 v0.0.5
+	webtyp.com/crypto v0.0.26
+	webtyp.com/fmt v0.25.7
+	webtyp.com/json v0.5.21
+	webtyp.com/model v0.1.7
+	webtyp.com/time v0.5.4
 )

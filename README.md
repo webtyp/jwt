@@ -1,7 +1,7 @@
-# tinywasm/jwt
+# webtyp/jwt
 <img src="docs/img/badges.svg">
 
-Isomorphic **JWT (HS256)** for the tinywasm ecosystem: the same code signs and verifies
+Isomorphic **JWT (HS256)** for the webtyp ecosystem: the same code signs and verifies
 on the native backend and inside a WASM/edge binary (browser, Cloudflare Workers,
 `goflare`).
 
@@ -9,7 +9,7 @@ It exists so a consumer that only needs to **verify** a token does not have to i
 entire auth stack (ORM, bcrypt, OAuth, a database driver) to do it.
 
 ```go
-import "github.com/tinywasm/jwt"
+import "webtyp.com/jwt"
 
 secret := []byte("a-256-bit-secret")
 

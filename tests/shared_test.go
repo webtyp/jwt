@@ -3,9 +3,9 @@ package jwt_test
 import (
 	"testing"
 
-	"github.com/tinywasm/base64"
-	"github.com/tinywasm/crypto/hmac"
-	"github.com/tinywasm/jwt"
+	"webtyp.com/base64"
+	"webtyp.com/crypto/hmac"
+	"webtyp.com/jwt"
 )
 
 // RunJWTTests is the single source of truth for both environments.
@@ -308,7 +308,7 @@ func test_ZeroOutcomeIsForged(t *testing.T) {
 
 // THE regression this type exists for.
 //
-// With `(Claims, error)`, tinywasm/user wrote `if err != nil { EventJWTTampered }` and
+// With `(Claims, error)`, webtyp/user wrote `if err != nil { EventJWTTampered }` and
 // so reported every routine expiry as a forgery — firing the loudest alarm in the
 // system on its quietest event, and burying real attacks in the noise. Expiry and
 // forgery must be different VALUES, not two sentinels sharing an error channel.

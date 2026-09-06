@@ -6,12 +6,12 @@
 package jwt
 
 import (
-	"github.com/tinywasm/base64"
-	"github.com/tinywasm/crypto/hmac"
-	"github.com/tinywasm/fmt"
-	"github.com/tinywasm/json"
-	"github.com/tinywasm/model"
-	"github.com/tinywasm/time"
+	"webtyp.com/base64"
+	"webtyp.com/crypto/hmac"
+	"webtyp.com/fmt"
+	"webtyp.com/json"
+	"webtyp.com/model"
+	"webtyp.com/time"
 )
 
 // Outcome is the CLOSED set of verdicts on a token. It is not an error: a token being
@@ -20,7 +20,7 @@ import (
 //
 // It is an enum rather than a sentinel error on purpose. With `(Claims, error)` a
 // caller can write `if err != nil { alarm() }` and collapse a routine expiry into a
-// forgery alarm — which is exactly what happened in tinywasm/user, drowning real
+// forgery alarm — which is exactly what happened in webtyp/user, drowning real
 // tampering in noise. A closed type makes that collapse something you have to
 // deliberately write, not something you get by forgetting.
 type Outcome uint8
@@ -373,5 +373,5 @@ func sign(secret []byte, signingInput string) string {
 	return base64.URLEncode(hmac.HMACSHA256(secret, []byte(signingInput)))
 }
 
-// now is unix seconds; tinywasm/time counts nanoseconds.
+// now is unix seconds; webtyp/time counts nanoseconds.
 func now() int64 { return time.Now() / 1e9 }

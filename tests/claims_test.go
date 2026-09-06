@@ -3,8 +3,8 @@ package jwt_test
 import (
 	"testing"
 
-	"github.com/tinywasm/base64"
-	"github.com/tinywasm/jwt"
+	"webtyp.com/base64"
+	"webtyp.com/jwt"
 )
 
 // libNow recovers the library's clock from a freshly signed token. There is no
