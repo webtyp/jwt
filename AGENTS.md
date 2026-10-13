@@ -77,6 +77,7 @@ not make forging easy**.
    it anyway. Regression test: `NoClaimsUnlessValid`.
 10. **`Forged` does not say why.** Telling "bad signature" apart from "bad base64" tells
     an attacker where they stand.
+11. **ES256 path:** the function is the algorithm; header never read; lifetime <= 60 s.
 
 ## The stdlib rule
 

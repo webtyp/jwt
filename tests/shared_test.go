@@ -47,6 +47,18 @@ func RunJWTTests(t *testing.T) {
 	t.Run("DecodeUnverifiedStillReturnsExpired", test_DecodeUnverifiedStillReturnsExpired)
 	t.Run("UnscopedClaimsStillByteIdentical", test_UnscopedClaimsStillByteIdentical)
 	t.Run("ConsumerValidatesAProjectScopedToken", test_ConsumerValidatesAProjectScopedToken)
+
+	t.Run("AssertionEmptyKey", test_AssertionEmptyKey)
+	t.Run("AssertionMalformed", test_AssertionMalformed)
+	t.Run("AssertionSignatureValid", test_AssertionSignatureValid)
+	t.Run("AssertionHandSignedPayloads", test_AssertionHandSignedPayloads)
+	t.Run("AssertionFutureIat", test_AssertionFutureIat)
+	t.Run("AssertionExpired", test_AssertionExpired)
+	t.Run("AssertionRoundTrip", test_AssertionRoundTrip)
+	t.Run("AssertionAlgConfusion", test_AssertionAlgConfusion)
+	t.Run("AssertionSignRefusals", test_AssertionSignRefusals)
+	t.Run("AssertionNew", test_AssertionNew)
+	t.Run("AssertionUnverifiedIssuer", test_AssertionUnverifiedIssuer)
 }
 
 var secret = []byte("a-256-bit-secret-for-the-test-abc")

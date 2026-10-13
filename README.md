@@ -49,6 +49,8 @@ The two return channels mean different things, and that separation **is** the AP
 | Sólo mostrar datos de un token, sin decidir nada | `DecodeUnverified(token)` |
 | Saber si venció | `claims.Expired()` |
 | Saber si es para mi proyecto | `claims.AllowsAudience(projectID)` |
+| authenticate a machine client | `NewClientAssertion` + `SignClientAssertion` |
+| verify a client assertion | `VerifyClientAssertion` |
 
 ### Frontend / Unverified Decode
 
