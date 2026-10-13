@@ -47,6 +47,10 @@ func (c *ClientAssertion) DecodeFields(r model.FieldReader) {
 	c.Exp, _ = r.Int("exp")
 }
 
+func (a ClientAssertion) wellFormed() bool {
+	return a.Iss != "" && a.Iss == a.Sub && a.Aud != "" && a.Jti != "" && a.Htm != "" && a.Htu != "" && a.Iat > 0 && a.Exp > a.Iat && a.Exp-a.Iat <= MaxAssertionLifetime
+}
+
 const (
 	// MaxAssertionLifetime bounds Exp-Iat. An assertion authorizes one request
 	// made right now; a long-lived one is a replayable credential.
@@ -56,6 +60,8 @@ const (
 	AssertionClockSkew = 30 // seconds
 	// minJtiBytes is the entropy NewClientAssertion puts in Jti.
 	minJtiBytes = 16
+	algES256    = "ES256"
+	es256SigLen = 64
 )
 
 var (
@@ -95,12 +101,12 @@ func SignClientAssertion(privateKey []byte, a ClientAssertion) (string, error) {
 	if len(privateKey) == 0 {
 		return "", ErrEmptyKey
 	}
-	if a.Iss == "" || a.Iss != a.Sub || a.Aud == "" || a.Jti == "" || a.Htm == "" || a.Htu == "" || a.Iat <= 0 || a.Exp <= a.Iat || a.Exp-a.Iat > MaxAssertionLifetime {
+	if !a.wellFormed() {
 		return "", ErrIncompleteAssertion
 	}
 
 	var h string
-	if err := json.Encode(header{Alg: "ES256", Typ: typJWT}, &h); err != nil {
+	if err := json.Encode(header{Alg: algES256, Typ: typJWT}, &h); err != nil {
 		return "", err
 	}
 	var p string
@@ -136,7 +142,7 @@ func VerifyClientAssertion(publicKey []byte, token string) (ClientAssertion, Out
 	}
 
 	sigBytes, err := base64.URLDecode(parts[2])
-	if err != nil || len(sigBytes) != 64 {
+	if err != nil || len(sigBytes) != es256SigLen {
 		return ClientAssertion{}, Forged, nil
 	}
 
@@ -155,7 +161,7 @@ func VerifyClientAssertion(publicKey []byte, token string) (ClientAssertion, Out
 		return ClientAssertion{}, Forged, nil
 	}
 
-	if a.Iss == "" || a.Iss != a.Sub || a.Aud == "" || a.Jti == "" || a.Htm == "" || a.Htu == "" || a.Iat <= 0 || a.Exp <= a.Iat || a.Exp-a.Iat > MaxAssertionLifetime {
+	if !a.wellFormed() {
 		return ClientAssertion{}, Forged, nil
 	}
 

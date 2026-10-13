@@ -2,10 +2,8 @@
 PLAN: "feat(jwt): ES256 client assertions (RFC 7523 private_key_jwt) bound to method and URL"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: review
+STATUS: running
 SESSION: 4935559937559875196
-PR: https://github.com/webtyp/jwt/pull/2
-REVIEWED_COMMIT: ed0cece61321b3acf0959b203ece27611e34c334
 ---
 
 > This plan is dispatched via the CodeJob workflow. See skill: agents-workflow.

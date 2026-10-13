@@ -74,14 +74,14 @@ func test_AssertionSignatureValid(t *testing.T) {
 func test_AssertionHandSignedPayloads(t *testing.T) {
 	pub, priv, _ := asym.GenerateKeyPair()
 
-	tests := []struct{
-		name string
-		iss string
-		sub string
-		aud string
-		jti string
-		htm string
-		htu string
+	tests := []struct {
+		name     string
+		iss      string
+		sub      string
+		aud      string
+		jti      string
+		htm      string
+		htu      string
 		iatDelta int64
 		expDelta int64
 	}{
