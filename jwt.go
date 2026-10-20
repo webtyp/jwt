@@ -373,5 +373,6 @@ func sign(secret []byte, signingInput string) string {
 	return base64.URLEncode(hmac.HMACSHA256(secret, []byte(signingInput)))
 }
 
-// now is unix seconds; webtyp/time counts nanoseconds.
-func now() int64 { return time.Now() / 1e9 }
+// now is a JWT NumericDate: Unix seconds (RFC 7519). The wire format is int64; the conversion from time.Unix happens
+// here, once.
+func now() int64 { return int64(time.NowUnix()) }
