@@ -2,8 +2,10 @@
 PLAN: "feat: verify RS256 tokens against a JWKS key set (KeySet, ParseKeySet, IdentityClaims, VerifyRS256)"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 6261608280173553919
+PR: https://github.com/webtyp/jwt/pull/3
+REVIEWED_COMMIT: a1346f4515ce7ad6102363d2867d966fd9ed7d92
 ---
 
 > Read AGENTS.md at the repo root before any change.
