@@ -1,8 +1,8 @@
 // Package jwt signs and verifies JSON Web Tokens (HS256) isomorphically: the same
 // code runs on the native backend and inside a WASM/edge binary.
 //
-// The library is deliberately small and closed: HS256 only, one claim set, no
-// algorithm negotiation. See docs/ARCHITECTURE.md for why.
+// The library is deliberately small and closed: HS256 tokens it signs, ES256 client assertions and RS256 tokens third parties
+// sign (verify only); the algorithm is chosen by the function called, never by the token header. See docs/ARCHITECTURE.md for why.
 package jwt
 
 import (
@@ -175,7 +175,7 @@ func NewScopedClaims(subject, aud string, scope []string, ttl int) Claims {
 // vencido (su trabajo es decodificar, no juzgar) pero el llamador SÍ tiene
 // que preguntarlo. Tener el método hace que olvidarse sea visible en la
 // revisión: un uso de DecodeUnverified sin un Expired cerca es sospechoso.
-func (c Claims) Expired() bool { return isExpired(c) }
+func (c Claims) Expired() bool { return isExpired(c.Exp) }
 
 // AllowsAudience reporta si el token está acotado a aud. Un token sin Aud
 // ("" = identidad sola, sin alcance) NO satisface ninguna audiencia
@@ -296,7 +296,7 @@ func verifyWithPayload(payloadB64 string) (Claims, Outcome, error) {
 	if c.Exp <= 0 || c.Sub == "" {
 		return Claims{}, Forged, nil
 	}
-	if isExpired(c) {
+	if isExpired(c.Exp) {
 		return Claims{}, Expired, nil
 	}
 	return c, Valid, nil
@@ -304,8 +304,8 @@ func verifyWithPayload(payloadB64 string) (Claims, Outcome, error) {
 
 // isExpired es la ÚNICA expresión que compara exp con la hora: verifyWithPayload
 // (detrás de Verify/VerifyAny) y Claims.Expired la llaman, y ninguna la
-// reescribe. Una sola regla de vencimiento (principio 4).
-func isExpired(c Claims) bool { return now() > c.Exp+Leeway }
+// reescribe. Una sola regla de vencimiento (principio 4). VerifyRS256 calls it too.
+func isExpired(exp int64) bool { return now() > exp+Leeway }
 
 // FromBearer extracts the token from an Authorization header value.
 // A missing or non-Bearer header yields ok == false; the token is never guessed.

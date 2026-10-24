@@ -51,6 +51,8 @@ The two return channels mean different things, and that separation **is** the AP
 | Saber si es para mi proyecto | `claims.AllowsAudience(projectID)` |
 | authenticate a machine client | `NewClientAssertion` + `SignClientAssertion` |
 | verify a client assertion | `VerifyClientAssertion` |
+| Verify a token a third party signed with RS256 (e.g. Cloudflare Access) | ParseKeySet(jwks) + VerifyRS256(keys, token) |
+| Know whether an RS256 token is for my application | claims.HasAudience(aud) |
 
 ### Frontend / Unverified Decode
 
@@ -92,6 +94,18 @@ claims, outcome, err := jwt.VerifyAny([][]byte{newSecret, oldSecret}, token)
 The empty-secret refusal does not relax for coming in a list, every secret is tried
 before answering (no timing short-circuit on the first match), and an expired token
 authentic under *any* of the secrets is still `Expired`, never `Forged`.
+
+### RS256 tokens (JWKS)
+
+A JWKS is a JSON Web Key Set containing RSA public keys. Fetching the JWKS is the
+caller's job (this package never does network I/O). An unknown `kid` yields `Forged`,
+so the caller should refresh its key set and retry once.
+
+Example:
+
+```go
+claims, outcome, err := jwt.VerifyRS256(keys, ctx.GetHeader("Cf-Access-Jwt-Assertion"))
+```
 
 ### Authorization header
 
