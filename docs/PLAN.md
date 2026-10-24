@@ -2,6 +2,8 @@
 PLAN: "feat: verify RS256 tokens against a JWKS key set (KeySet, ParseKeySet, IdentityClaims, VerifyRS256)"
 EXECUTOR: jules
 REVIEWER: none
+STATUS: running
+SESSION: 6261608280173553919
 ---
 
 > Read AGENTS.md at the repo root before any change.
