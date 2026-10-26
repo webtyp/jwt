@@ -1,0 +1,19 @@
+{
+  "languages": ["es", "zh", "hi", "ar", "pt", "fr", "de", "ru"],
+  "keys": {
+    "assertion": ["afirmación", "断言", "दावा", "تأكيد", "afirmação", "assertion", "Behauptung", "утверждение"],
+    "client": ["cliente", "客户", "ग्राहक", "عميل", "cliente", "client", "Kunde", "клиент"],
+    "decode": ["decodificar", "解码", "डिकोड", "فك شفرة", "decodificar", "décoder", "dekodieren", "декодировать"],
+    "empty": ["vacío", "空", "खाली", "فارغ", "vazio", "vide", "leer", "пустой"],
+    "expired": ["caducado", "已过期", "समाप्त", "منتهي الصلاحية", "expirado", "expiré", "abgelaufen", "истекший"],
+    "incomplete": ["incompleto", "不完整", "अपूर्ण", "غير مكتمل", "incompleto", "incomplet", "unvollständig", "неполный"],
+    "jwt": ["JWT", "JWT", "JWT", "JWT", "JWT", "JWT", "JWT", "JWT"],
+    "key": ["clave", "钥匙", "कुंजी", "مفتاح", "chave", "clé", "Schlüssel", "ключ"],
+    "keyset": ["conjunto de claves", "密钥集", "कुंजी सेट", "مجموعة مفاتيح", "conjunto de chaves", "jeu de clés", "Schlüsselsatz", "набор ключей"],
+    "malformed": ["mal formado", "格式错误", "विकृत", "مشوه", "malformado", "malformé", "missgestaltet", "искаженный"],
+    "missing-claims": ["reclamos faltantes", "缺失声明", "दावे गायब", "مطالبات مفقودة", "reivindicações ausentes", "réclamations manquantes", "fehlende Ansprüche", "недостающие требования"],
+    "secret": ["secreto", "秘密", "गुप्त", "سر", "segredo", "secret", "Geheimnis", "секрет"],
+    "subject": ["asunto", "主题", "विषय", "موضوع", "assunto", "sujet", "Thema", "предмет"],
+    "token": ["token", "代币", "टोकन", "رمز", "token", "jeton", "Token", "токен"]
+  }
+}
