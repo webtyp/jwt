@@ -131,7 +131,6 @@ func (c Claims) EncodeFields(w model.FieldWriter) {
 		for _, s := range c.Scope {
 			aw.String(s)
 		}
-		aw.Close()
 	}
 }
 func (c Claims) IsNil() bool { return false }
