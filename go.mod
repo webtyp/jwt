@@ -7,7 +7,7 @@ require (
 	webtyp.com/crypto v0.0.30
 	webtyp.com/fmt v1.0.0
 	webtyp.com/json v0.5.37
-	webtyp.com/model v0.2.9
+	webtyp.com/model v0.2.11
 	webtyp.com/time v0.6.2
 )
 
